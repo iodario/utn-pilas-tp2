@@ -4,7 +4,7 @@
 
 int main()
 {
-    ejercicio3();
+    ejercicio4();
     return 0;
 }
 
@@ -72,11 +72,11 @@ void ejercicio2()
         scanf("%c",&option);
     }
     while
-(
-    option == 's'
-);
-printf("MOSTRAR PILA ORIGEN, ANTES: \n");
-mostrar(&origen);
+    (
+        option == 's'
+    );
+    printf("MOSTRAR PILA ORIGEN, ANTES: \n");
+    mostrar(&origen);
 
     //se pasa de una pila a la otra
     while(!pilavacia(&origen))
@@ -101,6 +101,7 @@ void ejercicio3()
     inicpila( &distintos);
     inicpila(&aux);
 
+    //carga
     char option = 's';
     do
     {
@@ -110,35 +111,82 @@ void ejercicio3()
         scanf("%c", &option);
     }
     while
-     (
-     option == 's'
-     );
+    (
+        option == 's'
+    );
 
-     printf("MOSTRAR PILA DADA, ANTES: \n");
-     mostrar(&dada);
+    printf("MOSTRAR PILA DADA, ANTES: \n");
+    mostrar(&dada);
 
-     //logica
+    //logica
 
-     while (!pilavacia(&dada))
-     {
-         if(tope(&dada)==8)
-         {
-              apilar(&aux, desapilar(&dada));
-         }
-         else
-         {
-             apilar(&distintos, desapilar(&dada));
-         }
-     };
+    while (!pilavacia(&dada))
+    {
+        if(tope(&dada)==8)
+        {
+            apilar(&aux, desapilar(&dada));
+        }
+        else
+        {
+            apilar(&distintos, desapilar(&dada));
+        }
+    };
 
-     printf("MOSTRAR PILA DADA, DESPUES: \n");
-     mostrar(&dada);
+    printf("MOSTRAR PILA DADA, DESPUES: \n");
+    mostrar(&dada);
 
-     printf("MOSTRAR PILA DISTINTOS: \n");
-     mostrar(&distintos);
+    printf("MOSTRAR PILA DISTINTOS: \n");
+    mostrar(&distintos);
 
-     printf("MOSTRAR PILA AUX: \n");
-     mostrar(&aux);
+    printf("MOSTRAR PILA AUX: \n");
+    mostrar(&aux);
+
+
+}
+
+void ejercicio4()
+{
+    printf(" Cargar desde el teclado la pila ORIGEN e inicializar en vacío la pila DESTINO. \n");
+    printf("Pasar los elementos de la pila ORIGEN a la pila DESTINO, pero dejándolos en el mismo orden.\n\n");
+
+    Pila origen, destino, aux;
+    inicpila(&origen);
+    inicpila(&destino);
+    inicpila(&aux);
+
+    //carga
+    char option = 's';
+    do
+    {
+        leer(&origen);
+        printf("Desea continuar cargando datos a la pila? continuar s/n");
+        fflush(stdin);
+        scanf("%c", &option);
+    }
+    while
+    (
+        option == 's'
+    );
+
+    printf("MOSTRAR PILA origen, ANTES: \n");
+    mostrar(&origen);
+
+    while(!pilavacia(&origen))
+    {
+        apilar(&aux, desapilar(&origen));
+    }
+
+    while(!pilavacia(&aux))
+    {
+        apilar(&destino, desapilar(&aux));
+    }
+
+    printf("MOSTRAR PILA origen, DESPUES: \n");
+    mostrar(&origen);
+
+    printf("MOSTRAR PILA DESTINO: \n");
+    mostrar(&destino);
+
 
 
 
