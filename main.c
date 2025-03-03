@@ -4,7 +4,7 @@
 
 int main()
 {
-    ejercicio5 ();
+    ejercicio6 ();
     return 0;
 }
 
@@ -235,8 +235,65 @@ void ejercicio5()
     mostrar(&dada);
 
 
+}
+
+void ejercicio6()
+{
+    printf("Pasar el primer elemento (tope) de la pila DADA a su última posición (base), dejando los restantes elementos en el mismo orden. \n\n");
+
+    Pila dada, aux1, aux2;
+    inicpila(&aux1);
+    inicpila(&dada);
+//    inicpila(&aux2); // otra solucion
+
+    //INCLUIMOS CARGA CON RAND, PARA CUATRO ELEMENTOS
+    int i=0;
+    int num;
+    srand(time(NULL));
+    while(i<4)
+    {
+        num = rand()%10+1;
+        apilar (&dada, num);
+        i++;
+    }
+    printf("MOSTRAR PILA DADA, ANTES: \n");
+    mostrar(&dada);
+
+    //separo el tope y lo guardo en una variable
+    int dato;
+    dato=desapilar(&dada);
+    printf("PILA DADA, SIN EL TOPE: \n");
+    mostrar(&dada);
+
+    //otra solucion
+//    if(!pilavacia(&dada))
+//    {
+//        apilar(&aux2, desapilar(&dada));
+//    }
+
+
+    //desapilo dada y apilo en aux1
+    while(!pilavacia(&dada))
+    {
+        apilar(&aux1,desapilar(&dada));
+    }
+    //mostrar(&aux1);
+
+    //apilo en dada y coloco primero la variable dato
+    apilar(&dada,dato);
+
+    //desapilo aux1 y apilo en dada
+    while(!pilavacia(&aux1))
+    {
+        apilar(&dada,desapilar(&aux1));
+    }
+
+    printf("PILA DADA, con el anterior tope como base: \n");
+    mostrar(&dada);
 
 
 }
+
+
 
 
