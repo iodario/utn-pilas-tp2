@@ -4,7 +4,7 @@
 
 int main()
 {
-    ejercicio2();
+    ejercicio3();
     return 0;
 }
 
@@ -90,6 +90,58 @@ mostrar(&origen);
     printf("MOSTRAR PILA DESTINO \n");
     mostrar(&destino);
 
+}
+
+
+void ejercicio3()
+{
+    printf(" Cargar desde teclado una pila DADA y pasar a la pila DISTINTOS todos aquellos elementos distintos al valor 8.\n\n");
+    Pila dada, distintos, aux;
+    inicpila(&dada);
+    inicpila( &distintos);
+    inicpila(&aux);
+
+    char option = 's';
+    do
+    {
+        leer(&dada);
+        printf("Desea continuar cargando datos a la pila? continuar s/n");
+        fflush(stdin);
+        scanf("%c", &option);
+    }
+    while
+     (
+     option == 's'
+     );
+
+     printf("MOSTRAR PILA DADA, ANTES: \n");
+     mostrar(&dada);
+
+     //logica
+
+     while (!pilavacia(&dada))
+     {
+         if(tope(&dada)==8)
+         {
+              apilar(&aux, desapilar(&dada));
+         }
+         else
+         {
+             apilar(&distintos, desapilar(&dada));
+         }
+     };
+
+     printf("MOSTRAR PILA DADA, DESPUES: \n");
+     mostrar(&dada);
+
+     printf("MOSTRAR PILA DISTINTOS: \n");
+     mostrar(&distintos);
+
+     printf("MOSTRAR PILA AUX: \n");
+     mostrar(&aux);
+
 
 
 }
+
+
