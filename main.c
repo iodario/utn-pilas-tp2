@@ -4,7 +4,7 @@
 
 int main()
 {
-    ejercicio1();
+    ejercicio2();
     return 0;
 }
 
@@ -43,5 +43,53 @@ void ejercicio1()
 
     printf("MOSTRAR: PILA AUX2 \n");
     mostrar(&aux2);
+
+}
+
+void ejercicio2()
+{
+    printf("Cargar desde el teclado una pila llamada ORIGEN e inicializar en vacío la pila DESTINO.\n");
+    printf("Pasar todos los elementos de la pila ORIGEN a la pila DESTINO. \n");
+
+    Pila origen, destino;
+    inicpila(&origen);
+    inicpila(&destino);
+
+//    apilar(&origen,1);
+//    apilar(&origen,2);
+//    apilar(&origen,3);
+//    apilar(&origen,4);
+//    apilar(&origen,5);
+
+    //mejorado con do while
+    //carga de pila
+    char option = 's';
+    do
+    {
+        leer(&origen);
+        printf("Desea continuar cargando la pila? Presione s/n. \n");
+        fflush(stdin);
+        scanf("%c",&option);
+    }
+    while
+(
+    option == 's'
+);
+printf("MOSTRAR PILA ORIGEN, ANTES: \n");
+mostrar(&origen);
+
+    //se pasa de una pila a la otra
+    while(!pilavacia(&origen))
+    {
+        apilar(&destino, desapilar(&origen));
+    }
+
+    printf("MOSTRAR PILA ORIGEN, DESPUES \n");
+    mostrar(&origen);
+
+    printf("MOSTRAR PILA DESTINO \n");
+    mostrar(&destino);
+
+
 
 }
