@@ -4,7 +4,7 @@
 
 int main()
 {
-    ejercicio4();
+    ejercicio5 ();
     return 0;
 }
 
@@ -186,6 +186,53 @@ void ejercicio4()
 
     printf("MOSTRAR PILA DESTINO: \n");
     mostrar(&destino);
+
+}
+
+void ejercicio5()
+{
+    printf(" Cargar desde el teclado la pila DADA \n");
+    printf(" Invertir la pila de manera que DADA contenga los elementos cargados originalmente en ella, pero en orden inverso.\n\n");
+
+    Pila dada, aux1, aux2;
+    inicpila(&dada);
+    inicpila(&aux1);
+    inicpila(&aux2);
+
+    //carga
+    char option = 's';
+    do
+    {
+        leer(&dada);
+        printf("Desea continuar cargando datos a la pila? continuar s/n");
+        fflush(stdin);
+        scanf("%c", &option);
+    }
+    while
+    (
+        option == 's'
+    );
+
+    printf("MOSTRAR PILA dada, ANTES: \n");
+    mostrar(&dada);
+
+    while(!pilavacia(&dada))
+    {
+        apilar(&aux1, desapilar(&dada));
+    }
+
+    while(!pilavacia(&aux1))
+    {
+        apilar(&aux2, desapilar(&aux1));
+    }
+
+    while(!pilavacia(&aux2))
+    {
+        apilar(&dada, desapilar(&aux2));
+    }
+
+    printf("MOSTRAR PILA dada, DESPUES: \n");
+    mostrar(&dada);
 
 
 
