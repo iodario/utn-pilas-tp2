@@ -4,7 +4,7 @@
 
 int main()
 {
-    ejercicio7 ();
+    ejercicio8 ();
     return 0;
 }
 
@@ -294,7 +294,7 @@ void ejercicio6()
 
 }
 
-ejercicio7()
+void ejercicio7()
 {
     printf("Pasar el ultimo elemento (base) de la pila DADA a su primera posicion (tope), dejando los restantes elementos en el mismo orden.\n\n");
 
@@ -305,6 +305,7 @@ ejercicio7()
     inicpila(&aux2);
 
     //carga automatica
+//    srand(time(NULL));
 //    int cantElementos;
 //    do
 //    {
@@ -329,42 +330,101 @@ ejercicio7()
 
     // otra forma, de carga
     int cantElementos;
-    do {
-    printf("Ingrese la cantidad de elementos a cargar (máximo 50): \n");
-    scanf("%d", &cantElementos);
+    srand(time(NULL));
+    do
+    {
+        printf("Ingrese la cantidad de elementos a cargar (maximo 50): \n");
+        scanf("%d", &cantElementos);
 
-    if (cantElementos > 0 && cantElementos <= 50) {
-        for (int i = 0; i < cantElementos; i++) {
-            apilar(&dada, rand() % 19);
+        if (cantElementos > 0 && cantElementos <= 50)
+        {
+            for (int i = 0; i < cantElementos; i++)
+            {
+                apilar(&dada, rand() % 19);
+            }
+            break; // Salimos del bucle si la cantidad es válida
         }
-        break; // Salimos del bucle si la cantidad es válida
+
+        printf("La cantidad ingresada es inválida. Debe estar entre 1 y 50.\n");
+    }
+    while (1);   // Se repite hasta que se ingrese un valor válido
+
+    printf("SE MUESTRA LA PILA dada. Antes: \n");
+    mostrar(&dada);
+
+
+    //logica
+    while(!pilavacia(&dada))
+    {
+        apilar(&aux1,desapilar(&dada));
     }
 
-    printf("La cantidad ingresada es inválida. Debe estar entre 1 y 50.\n");
-} while (1); // Se repite hasta que se ingrese un valor válido
+    apilar(&aux2, desapilar(&aux1)); // paso el tope
 
-     printf("SE MUESTRA LA PILA dada. Antes: \n");
-     mostrar(&dada);
+    while(!pilavacia(&aux1))
+    {
+        apilar(&dada, desapilar(&aux1));
+    }
 
+    apilar(&dada, desapilar(&aux2)); // paso el nuevo tope
 
-     //logica
-     while(!pilavacia(&dada))
-     {
-         apilar(&aux1,desapilar(&dada));
-     }
-
-     apilar(&aux2, desapilar(&aux1)); // paso el tope
-
-     while(!pilavacia(&aux1))
-     {
-         apilar(&dada, desapilar(&aux1));
-     }
-
-     apilar(&dada, desapilar(&aux2)); // paso el nuevo tope
-
-     printf("Se muestra pila dada con la anterior base como nuevo tope. \n");
-     mostrar(&dada);
+    printf("Se muestra pila dada con la anterior base como nuevo tope. \n");
+    mostrar(&dada);
 }
+
+
+void ejercicio8()
+{
+    {
+        Pila mazo, jug1, jug2;
+        inicpila(&mazo);
+        inicpila(&jug1);
+        inicpila(&jug2);
+
+        //carga automatica, con rand()
+        srand(time(NULL));
+        int cantElementos;
+        do
+        {
+            printf("Ingrese la cantidad de elementos a cargar en la pila mazo, maximo 50 \n\n");
+            scanf("%d",&cantElementos);
+
+            if(cantElementos >0 && cantElementos <=50)
+            {
+                for( int i = 0; i < cantElementos ; i++)
+                {
+                    apilar(&mazo, rand() %11);
+                }
+            }
+            else
+            {
+                printf("La cantidad ingresada es invalida, debe ser entre 1 y 50. \n");
+            };
+        }
+        while (cantElementos <= 0 || cantElementos >50);
+
+        printf("SE MUESTRA LA PILA mazo. Antes: \n");
+        mostrar(&mazo);
+
+        //reparto de cartas
+        while(!pilavacia(&mazo))
+        {
+            apilar(&jug1, desapilar(&mazo));
+            if (!pilavacia(&mazo))   //verificamos si aun hay cartas , en caso de impar
+            {
+                apilar(&jug2, desapilar(&mazo));
+            }
+        }
+        printf("Se muestra pila jugador 1 \n");
+        mostrar(&jug1);
+
+        printf("Se muestra pila jugador 2 \n");
+        mostrar(&jug2);
+
+    }
+
+}
+
 
 
 
