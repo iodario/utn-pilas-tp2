@@ -4,7 +4,7 @@
 
 int main()
 {
-    ejercicio6 ();
+    ejercicio7 ();
     return 0;
 }
 
@@ -290,6 +290,60 @@ void ejercicio6()
 
     printf("PILA DADA, con el anterior tope como base: \n");
     mostrar(&dada);
+
+
+}
+
+ejercicio7()
+{
+    printf("Pasar el ultimo elemento (base) de la pila DADA a su primera posicion (tope), dejando los restantes elementos en el mismo orden.\n\n");
+
+
+    Pila dada, aux1, aux2;
+    inicpila(&dada);
+    inicpila(&aux1);
+    inicpila(&aux2);
+
+    //carga automatica
+//    int cantElementos;
+//    do
+//    {
+//        printf("Ingrese la cantidad de elementos a cargar en la pila, maximo 50 \n\n");
+//        scanf("%d",&cantElementos);
+//
+//        if(cantElementos >0 && cantElementos <=50)
+//        {
+//            for( int i = 0; i < cantElementos ; i++)
+//            {
+//                apilar(&dada, rand() %11);
+//            }
+//        }else
+//        {
+//            printf("La cantidad ingresada es invalida, debe ser entre 1 y 50. \n");
+//        };
+//    }while (cantElementos <= 0 || cantElementos >50);
+//    printf("SE MUESTRA LA PILA dada. Antes: \n");
+//    mostrar(&dada);
+
+
+    // otra forma, de carga
+    int cantElementos;
+    do {
+    printf("Ingrese la cantidad de elementos a cargar (máximo 50): \n");
+    scanf("%d", &cantElementos);
+
+    if (cantElementos > 0 && cantElementos <= 50) {
+        for (int i = 0; i < cantElementos; i++) {
+            apilar(&dada, rand() % 11);
+        }
+        break; // Salimos del bucle si la cantidad es válida
+    }
+
+    printf("La cantidad ingresada es inválida. Debe estar entre 1 y 50.\n");
+} while (1); // Se repite hasta que se ingrese un valor válido
+
+     printf("SE MUESTRA LA PILA dada. Antes: \n");
+     mostrar(&dada);
 
 
 }
