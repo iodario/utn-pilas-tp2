@@ -322,6 +322,7 @@ ejercicio7()
 //            printf("La cantidad ingresada es invalida, debe ser entre 1 y 50. \n");
 //        };
 //    }while (cantElementos <= 0 || cantElementos >50);
+
 //    printf("SE MUESTRA LA PILA dada. Antes: \n");
 //    mostrar(&dada);
 
@@ -334,7 +335,7 @@ ejercicio7()
 
     if (cantElementos > 0 && cantElementos <= 50) {
         for (int i = 0; i < cantElementos; i++) {
-            apilar(&dada, rand() % 11);
+            apilar(&dada, rand() % 19);
         }
         break; // Salimos del bucle si la cantidad es válida
     }
@@ -346,6 +347,23 @@ ejercicio7()
      mostrar(&dada);
 
 
+     //logica
+     while(!pilavacia(&dada))
+     {
+         apilar(&aux1,desapilar(&dada));
+     }
+
+     apilar(&aux2, desapilar(&aux1)); // paso el tope
+
+     while(!pilavacia(&aux1))
+     {
+         apilar(&dada, desapilar(&aux1));
+     }
+
+     apilar(&dada, desapilar(&aux2)); // paso el nuevo tope
+
+     printf("Se muestra pila dada con la anterior base como nuevo tope. \n");
+     mostrar(&dada);
 }
 
 
