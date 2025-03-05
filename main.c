@@ -5,7 +5,7 @@
 
 int main()
 {
-    ejercicio9opcion4sergiogarguir();
+    ejercicio10cargamanual();
     return 0;
 }
 
@@ -245,7 +245,7 @@ void ejercicio6()
     Pila dada, aux1, aux2;
     inicpila(&aux1);
     inicpila(&dada);
-//    inicpila(&aux2); // otra solucion
+    //    inicpila(&aux2); // otra solucion
 
     //INCLUIMOS CARGA CON RAND, PARA CUATRO ELEMENTOS
     int i=0;
@@ -491,7 +491,7 @@ void ejercicio9()
     }
 
     //restauramos las cartas a cada jugador
-   while(!pilavacia(&mazo))
+    while(!pilavacia(&mazo))
     {
         apilar(&jug2, desapilar(&mazo));
         if(!pilavacia(&mazo))
@@ -633,7 +633,7 @@ void ejercicio9opcion3profe()
 
     if (pilavacia(&A)&&pilavacia(&B))
     {
-         printf("La cantidad de elementos es igual en ambas pilas \n");
+        printf("La cantidad de elementos es igual en ambas pilas \n");
     }
     else
     {
@@ -651,9 +651,9 @@ void ejercicio9opcion3profe()
 }
 
 void ejercicio9opcion4sergiogarguir()
-//simplifica mucho mas la carga random,
+//simplifica mucho mas la carga random, lo malo que hay que probar varias veces hasta obtener un resultado practico.
 
-   {
+{
     printf("Comparar la cantidad de elementos de las pilas A y B. Mostrar por pantalla el resultado.\n\n");
 
     Pila A, B, auxA, auxB;
@@ -664,12 +664,12 @@ void ejercicio9opcion4sergiogarguir()
 
     //carga pila A Y B--------------
     srand(time(NULL));
-    for(int i=1;i<rand()%20;i++)
+    for(int i=1; i<rand()%20; i++)
     {
         apilar (&A, rand()%20);
     }
 
-    for(int i=1;i<rand()%20;i++)
+    for(int i=1; i<rand()%20; i++)
     {
         apilar (&B, rand()%20);
     }
@@ -688,7 +688,7 @@ void ejercicio9opcion4sergiogarguir()
 
     if (pilavacia(&A)&&pilavacia(&B))
     {
-         printf("La cantidad de elementos es igual en ambas pilas \n");
+        printf("La cantidad de elementos es igual en ambas pilas \n");
     }
     else
     {
@@ -709,5 +709,159 @@ void ejercicio9opcion4sergiogarguir()
     mostrar(&B);
 }
 
+void ejercicio10()
+{
+    printf("Cargar las pilas A y B y luego compararlas, evaluando si son completamente iguales, \n");
+    printf("(en cantidad de elementos, valores que contienen y posición de los mismos). Mostrar por pantalla el resultado. \n\n ");
+
+    Pila A, B, aux1, aux2;
+    inicpila(&A);
+    inicpila(&B);
+    inicpila(&aux1);
+    inicpila(&aux2);
+
+    srand(time(NULL));
+
+    //carga de elementos -A
+    int cantElementosA;
+    do
+    {
+        printf("Ingrese cantidad de elementos en A: \n");
+        scanf("%d",&cantElementosA);
+        if(cantElementosA>0 && cantElementosA<=50)
+        {
+            for(int i=0; i<cantElementosA; i++)
+            {
+                apilar(&A, rand()%20);
+            }
+        }
+        else
+        {
+            printf("Error: La cantidad ingresada en invalida. Reintente. \n");
+        };
+    }
+    while(cantElementosA<=0 || cantElementosA>50);
+
+    //carga de elementos -B
+    int cantElementosB;
+    do
+    {
+        printf("Ingrese cantidad de elementos en B: \n");
+        scanf("%d",&cantElementosB);
+        if(cantElementosB>0 && cantElementosB<=50)
+        {
+            for(int i=0; i<cantElementosB; i++)
+            {
+                apilar(&B, rand()%20);
+            }
+        }
+        else
+        {
+            printf("Error: La cantidad ingresada en invalida. Reintente. \n");
+        };
+    }
+    while(cantElementosB<=0 || cantElementosB>50);
+
+    //Muestra de pilas
+    printf("\n----PILA A --------\n");
+    mostrar(&A);
+    printf("\n----PILA B --------\n");
+    mostrar(&B);
+
+    //COMPARACION
+    int bandera = 1; // flag, indica que las pilas son iguales hasta el momento (true)
+
+    while(!pilavacia(&A)&&!pilavacia(&B)&& bandera == 1) // mientras tengan datos A y B
+    {
+        if (tope(&A) == tope(&B))   //comparamos los topes, y apilamos en aux1 y aux2
+        {
+            apilar(&aux1, desapilar(&A));
+            apilar(&aux2, desapilar(&B));
+        }
+        else
+        {
+            bandera = 0; // indico bandera 0, cuando no son iguales los topes
+        }
+    }
+
+    if(pilavacia(&A)&&pilavacia(&B)&&bandera ==1)
+    {
+        printf("La cantidad , la posicion y los valores de los elementos son iguales en ambas pilas. \n");
+    }
+    else
+    {
+        printf("La cantidad , la posicion y los valores de los elementos son diferentes en ambas pilas. \n");
+
+    }
+}
+
+void ejercicio10cargamanual()
+{
+    printf("Cargar las pilas A y B y luego compararlas, evaluando si son completamente iguales, \n");
+    printf("(en cantidad de elementos, valores que contienen y posición de los mismos). Mostrar por pantalla el resultado. \n\n ");
+
+    Pila A, B, aux1, aux2;
+    inicpila(&A);
+    inicpila(&B);
+    inicpila(&aux1);
+    inicpila(&aux2);
+
+    //carga manual
+    char option = 's';
+    do
+    {
+        printf("\n Ingrese un numero para la pila A. ");
+        leer(&A);
+        printf("Desea continuar ? presione s/n \n");
+        fflush(stdin);
+        scanf("%c", &option);
+    }
+    while
+    (
+        option == 's'
+    );
+    printf("\n----------------------\n");
+
+    do
+    {
+        printf("\n Ingrese un numero para la pila B. ");
+        leer(&B);
+        printf("Desea continuar ? presione s/n \n");
+        fflush(stdin);
+        scanf("%c", &option);
+    }
+    while
+    (
+        option == 's'
+    );
+    printf("----------MOSTRAR PILA A: ------------\n");
+    mostrar(&A);
+    printf("----------MOSTRAR PILA B: ------------\n");
+    mostrar(&B);
+
+    //comparacion
+    int bandera = 1; // flag para indicar un valor true
+
+    while(!pilavacia(&A)&&!pilavacia(&B)&& bandera==1)
+    {
+        if(tope(&A) == tope(&B))
+        {
+            apilar(&aux1, desapilar(&A));
+            apilar(&aux2, desapilar(&B));
+        }else
+        {
+        bandera = 0;
+        }
+    }
+    if(pilavacia(&A)&&pilavacia(&B))
+    {
+        printf("La cantidad, posicion, y valores de los elementos es igual en ambas pilas");
+    }else
+    {
+        printf("La cantidad, posicion, y valores de los elementos es diferente en ambas");
+    }
+
+
+}
 
 
