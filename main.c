@@ -868,6 +868,8 @@ void ejercicio10cargamanual()
 
 void ejercicio11()
 {
+    printf("Suponiendo la existencia de una pila MODELO que no esté vacía,\n");
+    printf("eliminar de la pila DADA todos los elementos que sean iguales al TOPE de la pila MODELO.\n");
     Pila modelo,dada,basura,aux;
     inicpila(&modelo);
     inicpila(&dada);
@@ -918,11 +920,13 @@ void ejercicio11()
     while(!pilavacia(&aux))
     {
         apilar(&dada, desapilar(&aux));
-    };
+    }
 
     printf("\n pila dada, DESPUES \n");
     mostrar(&dada);
 }
+
+
 
 
 
