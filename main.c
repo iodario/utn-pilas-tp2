@@ -5,7 +5,7 @@
 
 int main()
 {
-    ejercicio10cargamanual();
+    ejercicio11();
     return 0;
 }
 
@@ -795,6 +795,7 @@ void ejercicio10()
     }
 }
 
+// MUCHO MEJOR
 void ejercicio10cargamanual()
 {
     printf("Cargar las pilas A y B y luego compararlas, evaluando si son completamente iguales, \n");
@@ -848,20 +849,80 @@ void ejercicio10cargamanual()
         {
             apilar(&aux1, desapilar(&A));
             apilar(&aux2, desapilar(&B));
-        }else
+        }
+        else
         {
-        bandera = 0;
+            bandera = 0;
         }
     }
     if(pilavacia(&A)&&pilavacia(&B))
     {
-        printf("La cantidad, posicion, y valores de los elementos es igual en ambas pilas");
-    }else
+        printf("La cantidad, posicion, y valores de los elementos es IGUAL en ambas pilas");
+    }
+    else
     {
-        printf("La cantidad, posicion, y valores de los elementos es diferente en ambas");
+        printf("La cantidad, posicion, y valores de los elementos es DIFERENTE en ambas");
     }
 
-
 }
+
+void ejercicio11()
+{
+    Pila modelo,dada,basura,aux;
+    inicpila(&modelo);
+    inicpila(&dada);
+    inicpila(&basura);
+    inicpila(&aux);
+
+    //carga manual
+    char option='s';
+    do
+    {
+        printf("\n PILA MODELO.\n");
+        leer(&modelo);
+        printf("Desea continuar ? Presione s/n. \n");
+        fflush(stdin);
+        scanf("%c",&option);
+    }
+    while(option == 's');
+
+    printf("\n-------------\n");
+    do
+    {
+        printf("\n PILA DADA.\n");
+        leer(&dada);
+        printf("Desea continuar ? Presione s/n. \n");
+        fflush(stdin);
+        scanf("%c",&option);
+    }
+    while(option == 's');
+
+    printf("\n -----PILA MODELO ------\n");
+    mostrar(&modelo);
+    printf("\n -----PILA DADA ------\n");
+    mostrar(&dada);
+
+    //comparacion y logica
+    while(!pilavacia(&dada))
+    {
+        if(tope(&modelo)==tope(&dada))
+        {
+            apilar(&basura, desapilar(&dada));
+        }
+        else
+        {
+            apilar(&aux, desapilar(&dada));
+        }
+    }
+
+    while(!pilavacia(&aux))
+    {
+        apilar(&dada, desapilar(&aux));
+    };
+
+    printf("\n pila dada, DESPUES \n");
+    mostrar(&dada);
+}
+
 
 
