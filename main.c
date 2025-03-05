@@ -4,7 +4,7 @@
 
 int main()
 {
-    ejercicio8 ();
+    ejercicio9 ();
     return 0;
 }
 
@@ -399,7 +399,7 @@ ejercicio8()
     }
     while (1); //se repite el bucle, hasta que se ingrese un valor valido.
 
-    printf("Mostrar pila MAZO, antes de repartir. \n");
+    printf("Se muestra pila MAZO, antes de repartir. \n");
     mostrar(&mazo);
 
     //repartimos
@@ -417,3 +417,88 @@ ejercicio8()
     mostrar(&jug2);
 
 }
+
+
+void ejercicio9()
+
+// variante, donde comparamos cantidad de elementos, y determinamos cual pila tiene mas.
+{
+    Pila mazo, jug1, jug2;
+    inicpila(&mazo);
+    inicpila(&jug1);
+    inicpila(&jug2);
+
+    //carga de pila
+    srand(time(NULL));
+    int cantElementos;
+
+    do
+    {
+        printf("Ingrese la cantidad de cartas a utilizar, no mas de 40. \n\n");
+        scanf("%d", &cantElementos);
+        if(cantElementos>0 && cantElementos<=40)
+        {
+           for(int i=0;i<cantElementos;i++)
+           {
+               apilar(&mazo, rand() %40);
+           }
+           break; // salgo del bucle, si la cantidad ingresada es valida
+        }
+        printf("Error. La cantidad ingresada es no valida. Reintente. \n");
+    }
+    while (1); //se repite el bucle, hasta que se ingrese un valor valido.
+
+    printf("Se muestra pila MAZO, antes de repartir. \n");
+    mostrar(&mazo);
+
+    //repartimos
+    while(!pilavacia(&mazo))
+    {
+        apilar(&jug1, desapilar(&mazo));
+        if(!pilavacia(&mazo)){
+                apilar(&jug2, desapilar(&mazo));
+        }
+    }
+    printf("Se muestra pila jugador 1: \n");
+    mostrar(&jug1);
+
+    printf("Se muestra pila jugador 2: \n");
+    mostrar(&jug2);
+
+    //comparamos jug1 y jug2, para determinar cual tenia mas cartas
+    while(!pilavacia(&jug1) && !pilavacia(&jug2))
+    {
+        apilar(&mazo,desapilar(&jug1));
+        apilar(&mazo,desapilar(&jug2));
+    }
+
+
+    // Determinamos cuál pila quedó con elementos
+    if (pilavacia(&jug1) && pilavacia(&jug2))
+    {
+        printf("Ambos jugadores tienen la misma cantidad de cartas.\n");
+    }
+    else if (pilavacia(&jug1))
+    {
+        printf("El jugador 2 tiene más cartas.\n");
+    }
+    else
+    {
+        printf("El jugador 1 tiene más cartas.\n");
+    }
+
+    printf("----Se muestra pila mazo DESPUES: \n");
+    mostrar(&jug1);
+
+     printf("----Se muestra pila jugador 1 DESPUES: \n");
+    mostrar(&jug1);
+
+    printf("----Se muestra pila jugador 2 DESPUES: \n");
+    mostrar(&jug2);
+
+}
+
+
+
+
+
