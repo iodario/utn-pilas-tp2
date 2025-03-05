@@ -204,7 +204,7 @@ void ejercicio5()
     do
     {
         leer(&dada);
-        printf("Desea continuar cargando datos a la pila? continuar s/n");
+        printf("Desea continuar cargando datos a la pila? continuar s/n \n");
         fflush(stdin);
         scanf("%c", &option);
     }
@@ -372,60 +372,48 @@ void ejercicio7()
     mostrar(&dada);
 }
 
-
-void ejercicio8()
+ejercicio8()
 {
+    Pila mazo, jug1, jug2;
+    inicpila(&mazo);
+    inicpila(&jug1);
+    inicpila(&jug2);
+
+    //carga de pila
+    srand(time(NULL));
+    int cantElementos;
+
+    do
     {
-        Pila mazo, jug1, jug2;
-        inicpila(&mazo);
-        inicpila(&jug1);
-        inicpila(&jug2);
-
-        //carga automatica, con rand()
-        srand(time(NULL));
-        int cantElementos;
-        do
+        printf("Ingrese la cantidad de cartas a utilizar, no mas de 40. \n\n");
+        scanf("%d", &cantElementos);
+        if(cantElementos>0 && cantElementos<=40)
         {
-            printf("Ingrese la cantidad de elementos a cargar en la pila mazo, maximo 50 \n\n");
-            scanf("%d",&cantElementos);
-
-            if(cantElementos >0 && cantElementos <=50)
-            {
-                for( int i = 0; i < cantElementos ; i++)
-                {
-                    apilar(&mazo, rand() %11);
-                }
-            }
-            else
-            {
-                printf("La cantidad ingresada es invalida, debe ser entre 1 y 50. \n");
-            };
+           for(int i=0;i<cantElementos;i++)
+           {
+               apilar(&mazo, rand() %40);
+           }
+           break; // salgo del bucle, si la cantidad ingresada es valida
         }
-        while (cantElementos <= 0 || cantElementos >50);
-
-        printf("SE MUESTRA LA PILA mazo. Antes: \n");
-        mostrar(&mazo);
-
-        //reparto de cartas
-        while(!pilavacia(&mazo))
-        {
-            apilar(&jug1, desapilar(&mazo));
-            if (!pilavacia(&mazo))   //verificamos si aun hay cartas , en caso de impar
-            {
-                apilar(&jug2, desapilar(&mazo));
-            }
-        }
-        printf("Se muestra pila jugador 1 \n");
-        mostrar(&jug1);
-
-        printf("Se muestra pila jugador 2 \n");
-        mostrar(&jug2);
-
+        printf("Error. La cantidad ingresada es no valida. Reintente. \n");
     }
+    while (1); //se repite el bucle, hasta que se ingrese un valor valido.
+
+    printf("Mostrar pila MAZO, antes de repartir. \n");
+    mostrar(&mazo);
+
+    //repartimos
+    while(!pilavacia(&mazo))
+    {
+        apilar(&jug1, desapilar(&mazo));
+        if(!pilavacia(&mazo)){
+                apilar(&jug2, desapilar(&mazo));
+        }
+    }
+    printf("Se muestra pila jugador 1: \n");
+    mostrar(&jug1);
+
+    printf("Se muestra pila jugador 2: \n");
+    mostrar(&jug2);
 
 }
-
-
-
-
-
