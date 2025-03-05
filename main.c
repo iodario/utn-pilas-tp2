@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pila.h"
+#include "time.h"
 
 int main()
 {
-    ejercicio9 ();
+    ejercicio9opcion4sergiogarguir();
     return 0;
 }
 
@@ -389,11 +390,11 @@ ejercicio8()
         scanf("%d", &cantElementos);
         if(cantElementos>0 && cantElementos<=40)
         {
-           for(int i=0;i<cantElementos;i++)
-           {
-               apilar(&mazo, rand() %40);
-           }
-           break; // salgo del bucle, si la cantidad ingresada es valida
+            for(int i=0; i<cantElementos; i++)
+            {
+                apilar(&mazo, rand() %40);
+            }
+            break; // salgo del bucle, si la cantidad ingresada es valida
         }
         printf("Error. La cantidad ingresada es no valida. Reintente. \n");
     }
@@ -406,8 +407,9 @@ ejercicio8()
     while(!pilavacia(&mazo))
     {
         apilar(&jug1, desapilar(&mazo));
-        if(!pilavacia(&mazo)){
-                apilar(&jug2, desapilar(&mazo));
+        if(!pilavacia(&mazo))
+        {
+            apilar(&jug2, desapilar(&mazo));
         }
     }
     printf("Se muestra pila jugador 1: \n");
@@ -421,7 +423,7 @@ ejercicio8()
 
 void ejercicio9()
 
-// variante, donde comparamos cantidad de elementos, y determinamos cual pila tiene mas.
+// variante, donde comparamos cantidad de elementos, y determinamos SOLO SI SON IGUALES O NO y cual tiene mas--
 {
     Pila mazo, jug1, jug2;
     inicpila(&mazo);
@@ -438,11 +440,11 @@ void ejercicio9()
         scanf("%d", &cantElementos);
         if(cantElementos>0 && cantElementos<=40)
         {
-           for(int i=0;i<cantElementos;i++)
-           {
-               apilar(&mazo, rand() %40);
-           }
-           break; // salgo del bucle, si la cantidad ingresada es valida
+            for(int i=0; i<cantElementos; i++)
+            {
+                apilar(&mazo, rand() %40);
+            }
+            break; // salgo del bucle, si la cantidad ingresada es valida
         }
         printf("Error. La cantidad ingresada es no valida. Reintente. \n");
     }
@@ -455,8 +457,9 @@ void ejercicio9()
     while(!pilavacia(&mazo))
     {
         apilar(&jug1, desapilar(&mazo));
-        if(!pilavacia(&mazo)){
-                apilar(&jug2, desapilar(&mazo));
+        if(!pilavacia(&mazo))
+        {
+            apilar(&jug2, desapilar(&mazo));
         }
     }
     printf("Se muestra pila jugador 1: \n");
@@ -487,18 +490,224 @@ void ejercicio9()
         printf("El jugador 1 tiene más cartas.\n");
     }
 
-    printf("----Se muestra pila mazo DESPUES: \n");
+    //restauramos las cartas a cada jugador
+   while(!pilavacia(&mazo))
+    {
+        apilar(&jug2, desapilar(&mazo));
+        if(!pilavacia(&mazo))
+        {
+            apilar(&jug1, desapilar(&mazo));
+        }
+    }
+
+
+    printf("----Se muestra pila mazo DESPUES de la comparacion: \n");
+    mostrar(&mazo);
+
+    printf("----Se muestra pila jugador 1 DESPUES de la comparacion: \n");
     mostrar(&jug1);
 
-     printf("----Se muestra pila jugador 1 DESPUES: \n");
-    mostrar(&jug1);
-
-    printf("----Se muestra pila jugador 2 DESPUES: \n");
+    printf("----Se muestra pila jugador 2 DESPUES de la comparacion: \n");
     mostrar(&jug2);
+
 
 }
 
 
+
+
+void ejercicio9opcion2()
+// variante, donde comparamos cantidad de elementos, y determinamos SOLO SI SON IGUALES O NO y cual tiene mas--
+{
+    printf("Comparar la cantidad de elementos de las pilas A y B. Mostrar por pantalla el resultado.\n\n");
+
+    Pila A, B, auxA, auxB;
+    inicpila(&A);
+    inicpila(&B);
+    inicpila(&auxA);
+    inicpila(&auxB);
+
+    srand(time(NULL));
+
+    // Variables independientes para la cantidad de elementos en cada pila
+    int cantidadA = rand() % 5 + 1;
+    int cantidadB = rand() % 3 + 1;
+
+    // Carga de pilas
+    for (int i = 0; i < cantidadA; i++)
+    {
+        apilar(&A, (rand() % 100) + 1);
+    }
+    for (int i = 0; i < cantidadB; i++)
+    {
+        apilar(&B, (rand() % 100) + 1);
+    }
+
+    // Mostramos pilas antes de comparar
+    printf("\nPila A antes de comparar:\n");
+    mostrar(&A);
+    printf("\nPila B antes de comparar:\n");
+    mostrar(&B);
+
+    // Comparación sin perder datos
+    while (!pilavacia(&A) && !pilavacia(&B))
+    {
+        apilar(&auxA, desapilar(&A));
+        apilar(&auxB, desapilar(&B));
+    }
+
+    // Resultado de la comparación
+    if (pilavacia(&A) && pilavacia(&B))
+    {
+        printf("\nLas pilas tienen la misma cantidad de elementos.\n");
+    }
+    else
+    {
+        printf("\nLas pilas NO tienen la misma cantidad de elementos.\n");
+    }
+
+}
+
+void ejercicio9opcion3profe()
+// variante, donde comparamos cantidad de elementos, y determinamos SOLO SI SON IGUALES O NO y cual tiene mas-
+{
+    printf("Comparar la cantidad de elementos de las pilas A y B. Mostrar por pantalla el resultado.\n\n");
+
+    Pila A, B, aux, aux2;
+    inicpila(&A);
+    inicpila(&B);
+    inicpila(&aux);
+    inicpila(&aux2);
+
+    //carga pila A--------------
+    srand(time(NULL));
+    int cantElementosA;
+    do
+    {
+        printf("Ingrese la cantidad de elementos a utilizar en pila A, no mas de 50. \n\n");
+        scanf("%d", &cantElementosA);
+        if(cantElementosA>0 && cantElementosA<=50)
+        {
+            for(int i=0; i<cantElementosA; i++)
+            {
+                apilar(&A, rand() %50);
+            }
+            break; // salgo del bucle, si la cantidad ingresada es valida
+        }
+        printf("Error. La cantidad ingresada es no valida. Reintente. \n");
+    }
+    while (1); //se repite el bucle, hasta que se ingrese un valor valido.
+
+    printf("Se muestra pila A. \n");
+    mostrar(&A);
+
+    //carga pila B------------------
+    srand(time(NULL));
+    int cantElementosB;
+    do
+    {
+        printf("Ingrese la cantidad de elementos a utilizar en pila B, no mas de 50. \n\n");
+        scanf("%d", &cantElementosB);
+        if(cantElementosB>0 && cantElementosB<=50)
+        {
+            for(int i=0; i<cantElementosB; i++)
+            {
+                apilar(&B, rand() %50);
+            }
+            break; // salgo del bucle, si la cantidad ingresada es valida
+        }
+        printf("Error. La cantidad ingresada es no valida. Reintente. \n");
+    }
+    while (1); //se repite el bucle, hasta que se ingrese un valor valido.
+
+    printf("Se muestra pila B. \n\n");
+    mostrar(&B);
+    printf("-------------------\n\n");
+
+    //COMPARACION DE PILA A Y B --------------
+    while(!pilavacia(&A) && !pilavacia(&B))
+    {
+        apilar(&aux, desapilar(&A));
+        apilar(&aux2, desapilar(&B));
+    }
+
+    if (pilavacia(&A)&&pilavacia(&B))
+    {
+         printf("La cantidad de elementos es igual en ambas pilas \n");
+    }
+    else
+    {
+        printf("La cantidad de elementos es distinta entre las pilas\n");
+        printf("Comparando ...\n");
+        if(!pilavacia(&A))
+        {
+            printf("La pila A tiene mas elementos. \n");
+        }
+        else
+        {
+            printf("La pila B tiene mas elementos. \n");
+        }
+    }
+}
+
+void ejercicio9opcion4sergiogarguir()
+//simplifica mucho mas la carga random,
+
+   {
+    printf("Comparar la cantidad de elementos de las pilas A y B. Mostrar por pantalla el resultado.\n\n");
+
+    Pila A, B, auxA, auxB;
+    inicpila(&A);
+    inicpila(&B);
+    inicpila(&auxA);
+    inicpila(&auxB);
+
+    //carga pila A Y B--------------
+    srand(time(NULL));
+    for(int i=1;i<rand()%20;i++)
+    {
+        apilar (&A, rand()%20);
+    }
+
+    for(int i=1;i<rand()%20;i++)
+    {
+        apilar (&B, rand()%20);
+    }
+
+    printf("Se muestra pila A. \n");
+    mostrar(&A);
+    printf("Se muestra pila B. \n\n");
+    mostrar(&B);
+
+    //COMPARACION DE PILA A Y B --------------
+    while(!pilavacia(&A) && !pilavacia(&B))
+    {
+        apilar(&auxA, desapilar(&A));
+        apilar(&auxB, desapilar(&B));
+    }
+
+    if (pilavacia(&A)&&pilavacia(&B))
+    {
+         printf("La cantidad de elementos es igual en ambas pilas \n");
+    }
+    else
+    {
+        printf("La cantidad de elementos es distinta entre las pilas\n");
+        printf("Comparando ...\n");
+        if(!pilavacia(&A))
+        {
+            printf("La pila A tiene mas elementos. \n");
+        }
+        else
+        {
+            printf("La pila B tiene mas elementos. \n");
+        }
+    }
+    printf("\n Se muestra pila A. Despues \n");
+    mostrar(&A);
+    printf("\n Se muestra pila B. Despues \n\n");
+    mostrar(&B);
+}
 
 
 
