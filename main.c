@@ -5,7 +5,7 @@
 
 int main()
 {
-    ejercicio11();
+    ejercicio12();
     return 0;
 }
 
@@ -884,7 +884,7 @@ void ejercicio11()
         leer(&modelo);
         printf("Desea continuar ? Presione s/n. \n");
         fflush(stdin);
-        scanf("%c",&option);
+        scanf(" %c",&option);
     }
     while(option == 's');
 
@@ -895,7 +895,7 @@ void ejercicio11()
         leer(&dada);
         printf("Desea continuar ? Presione s/n. \n");
         fflush(stdin);
-        scanf("%c",&option);
+        scanf(" %c",&option);
     }
     while(option == 's');
 
@@ -926,7 +926,79 @@ void ejercicio11()
     mostrar(&dada);
 }
 
+void ejercicio12()
+{
+    printf("Suponiendo la existencia de una pila MODELO(vacía o no), \n");
+    printf("eliminar de la pila DADA todos los elementos que existan en la pila MODELO. \n");
 
+    Pila modelo,dada,basura,aux,auxModelo;
+    inicpila(&modelo);
+    inicpila(&dada);
+    inicpila(&basura);
+    inicpila(&aux);
+    inicpila(&auxModelo);
+
+
+    //carga de datos de las pilas, manual
+    char option='s';
+    do
+    {
+        printf("\n PILA MODELO. ");
+        leer(&modelo);
+        printf("Desea continuar ? Presione s/n. \n");
+        fflush(stdin);
+        scanf(" %c",&option);
+    }
+    while(option == 's');
+
+    printf("\n-------------\n");
+    do
+    {
+        printf("\n PILA DADA. ");
+        leer(&dada);
+        printf("Desea continuar ? Presione s/n. \n");
+        fflush(stdin);
+        scanf(" %c",&option);
+    }
+    while(option == 's');
+
+    printf("\n ------PILA MODELO---------\n");
+    mostrar(&modelo);
+    printf("\n ------PILA DADA---------\n");
+    mostrar(&dada);
+
+    //logica
+    while(!pilavacia(&modelo))
+        {
+        while(!pilavacia(&dada))
+        {
+                if(tope(&modelo)==tope(&dada))      //1er paso, comparar topes modelo y dada
+                {
+                    apilar(&basura, desapilar(&dada));
+                }else
+                {
+                    apilar(&aux, desapilar(&dada));
+                }
+        }
+        while(!pilavacia(&aux))                    //2do paso, volver a cargar dada, vaciando aux
+                {
+                    apilar(&dada, desapilar(&aux));
+                }
+        apilar(&auxModelo, desapilar(&modelo));     //3er paso, quitar el tope de Modelo, y cargarlo en auxModelo
+
+        }
+    while(!pilavacia(&auxModelo))                  //4to paso, restaurar Modelo, vaciando auxModelo
+    {
+        apilar(&modelo, desapilar(&auxModelo));
+    }
+
+    printf("\n ------PILA MODELO, DESPUES---------\n");
+    mostrar(&modelo);
+    printf("\n --------pida DADA, DESPUES---------- \n");
+    mostrar(&dada);
+
+
+}
 
 
 
