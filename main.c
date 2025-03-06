@@ -5,7 +5,7 @@
 
 int main()
 {
-    ejercicio12();
+    ejercicio13();
     return 0;
 }
 
@@ -994,9 +994,66 @@ void ejercicio12()
 
     printf("\n ------PILA MODELO, DESPUES---------\n");
     mostrar(&modelo);
-    printf("\n --------pida DADA, DESPUES---------- \n");
+    printf("\n --------PILA DADA, DESPUES---------- \n");
     mostrar(&dada);
 
+
+}
+
+void ejercicio13()
+{
+    printf("Suponiendo la existencia de una pila LIMITE,\n");
+    printf("pasar los elementos de la pila DADA que sean mayores o iguales que el tope de LIMITE a la pila MAYORES,\n");
+    printf("y los elementos que sean menores a la pila MENORES.\n\n");
+    Pila dada, limite, mayores, menores;
+    inicpila(&dada);
+    inicpila(&limite);
+    inicpila(&mayores);
+    inicpila(&menores);
+
+     //carga random
+    printf("\n Carga automatica, numeros del 1 al 20: \n\n");
+    srand(time(NULL));
+    for(int i=1; i<rand()%21; i++)
+    {
+        apilar (&dada, rand()%21);
+    }
+
+    for(int i=1; i<rand()%21; i++)
+    {
+        apilar (&limite, rand()%21);
+    }
+
+    printf("Se muestra pila DADA. \n");
+    mostrar(&dada);
+    printf("Se muestra pila LIMITE. \n");
+    mostrar(&limite);
+
+    system("pause");
+    //logica
+    if(!pilavacia(&limite))
+    {
+    while(!pilavacia(&dada))
+        {
+            if(tope(&dada)>=tope(&limite))
+            {
+                apilar(&mayores, desapilar(&dada));
+            }
+            else
+            {
+                apilar(&menores, desapilar(&dada));
+            }
+        }
+    }else{
+    printf("Error. Carga incorrecta en Limite. Reintente\n");
+    }
+
+    //resultados
+    printf("\n\n\nProcesando...\n");
+    printf("\n Se muestra pila MAYORES. \n");
+    mostrar(&mayores);
+    printf("\n Se muestra pila MENORES. \n");
+    mostrar(&menores);
 
 }
 
