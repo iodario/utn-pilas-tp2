@@ -5,7 +5,7 @@
 
 int main()
 {
-    ejercicio13();
+    ejercicio14chatgpt();
     return 0;
 }
 
@@ -969,24 +969,25 @@ void ejercicio12()
 
     //logica
     while(!pilavacia(&modelo))
-        {
+    {
         while(!pilavacia(&dada))
         {
-                if(tope(&modelo)==tope(&dada))      //1er paso, comparar topes modelo y dada
-                {
-                    apilar(&basura, desapilar(&dada));
-                }else
-                {
-                    apilar(&aux, desapilar(&dada));
-                }
+            if(tope(&modelo)==tope(&dada))      //1er paso, comparar topes modelo y dada
+            {
+                apilar(&basura, desapilar(&dada));
+            }
+            else
+            {
+                apilar(&aux, desapilar(&dada));
+            }
         }
         while(!pilavacia(&aux))                    //2do paso, volver a cargar dada, vaciando aux
-                {
-                    apilar(&dada, desapilar(&aux));
-                }
+        {
+            apilar(&dada, desapilar(&aux));
+        }
         apilar(&auxModelo, desapilar(&modelo));     //3er paso, quitar el tope de Modelo, y cargarlo en auxModelo
 
-        }
+    }
     while(!pilavacia(&auxModelo))                  //4to paso, restaurar Modelo, vaciando auxModelo
     {
         apilar(&modelo, desapilar(&auxModelo));
@@ -1011,7 +1012,7 @@ void ejercicio13()
     inicpila(&mayores);
     inicpila(&menores);
 
-     //carga random
+    //carga random
     printf("\n Carga automatica, numeros del 1 al 20: \n\n");
     srand(time(NULL));
     for(int i=1; i<rand()%21; i++)
@@ -1033,7 +1034,7 @@ void ejercicio13()
     //logica
     if(!pilavacia(&limite))
     {
-    while(!pilavacia(&dada))
+        while(!pilavacia(&dada))
         {
             if(tope(&dada)>=tope(&limite))
             {
@@ -1044,8 +1045,10 @@ void ejercicio13()
                 apilar(&menores, desapilar(&dada));
             }
         }
-    }else{
-    printf("Error. Carga incorrecta en Limite. Reintente\n");
+    }
+    else
+    {
+        printf("Error. Carga incorrecta en Limite. Reintente\n");
     }
 
     //resultados
@@ -1055,6 +1058,178 @@ void ejercicio13()
     printf("\n Se muestra pila MENORES. \n");
     mostrar(&menores);
 
+}
+
+void ejercicio14()
+{
+    printf("- Determinar si la cantidad de elementos de la pila DADA es par.\n");
+    printf("Si es par, pasar el elemento del tope de la pila AUX a la pila PAR\n");
+    printf("y si es impar pasar el tope a la pila IMPAR (NO contar los elementos)\n\n");
+
+    Pila dada, aux, impar;
+    inicpila(&dada);
+    inicpila(&aux);
+    inicpila(&impar);
+
+    printf("\n Carga automatica, numeros del 1 al 20: \n\n");
+    srand(time(NULL));
+    int cantidad = rand()%21; //genera un numero entre 0 y 20
+    int i;
+
+    for(i=0; i<cantidad; i++)
+    {
+        apilar(&dada, rand()%21);
+    }
+    printf("---- PILA DADA ------");
+    mostrar(&dada);
+
+    //logica
+    while (!pilavacia(&dada))
+    {
+        apilar(&aux, desapilar(&dada));
+        if(!pilavacia(&dada))
+        {
+            apilar(&aux, desapilar(&dada));
+        }
+        else
+        {
+            apilar(&impar, desapilar(&aux));
+        }
+    }
+
+    if (pilavacia(&impar))
+    {
+        printf("La pila DADA es par.\n");
+    }
+    else
+    {
+        printf("La pila DADA es impar.\n");
+
+    }
+
+}
+
+void ejercicio14chatgpt()
+{
+    printf("- Determinar si la cantidad de elementos de la pila DADA es par.\n");
+    printf("Si es par, pasar el elemento del tope de la pila AUX a la pila PAR\n");
+    printf("y si es impar, pasar el tope a la pila IMPAR (NO contar los elementos)\n\n");
+
+    Pila dada, aux, par, impar;
+    inicpila(&dada);
+    inicpila(&aux);
+    inicpila(&par);
+    inicpila(&impar);
+
+    // Carga automática de la pila DADA con entre 1 y 20 elementos
+    printf("\nCarga automática, números del 1 al 20:\n\n");
+    srand(time(NULL));
+    int cantidad = rand() % 20 + 1;  // Asegura al menos 1 elemento
+    int i;
+
+    for (i = 0; i < cantidad; i++)
+    {
+        apilar(&dada, rand() % 21);
+    }
+
+    printf("---- PILA DADA ------\n");
+    mostrar(&dada);
+
+    // Determinar si la cantidad de elementos en DADA es par o impar
+    int esPar = 1;  // Comienza en par
+
+    while (!pilavacia(&dada))
+    {
+        apilar(&aux, desapilar(&dada));  // Mueve elementos a AUX
+        esPar = !esPar;  // Alterna entre par e impar
+    }
+
+    // Si AUX no está vacía, mover el tope a PAR o IMPAR
+    if (!pilavacia(&aux))
+    {
+        if (esPar)
+        {
+            apilar(&par, desapilar(&aux));
+            printf("\nLa pila DADA tiene una cantidad **par** de elementos.\n");
+        }
+        else
+        {
+            apilar(&impar, desapilar(&aux));
+            printf("\nLa pila DADA tiene una cantidad **impar** de elementos.\n");
+        }
+    }
+
+    // Mostrar las pilas resultantes
+    printf("\n---- PILA AUX ------\n");
+    mostrar(&aux);
+    printf("\n---- PILA PAR ------\n");
+    mostrar(&par);
+    printf("\n---- PILA IMPAR ------\n");
+    mostrar(&impar);
+
+
+}
+
+void ejercicio14b()
+{
+    printf("- Determinar si la cantidad de elementos de la pila DADA es par.\n");
+    printf("Si es par, pasar el elemento del tope de la pila AUX a la pila PAR\n");
+    printf("y si es impar, pasar el tope a la pila IMPAR (NO contar los elementos).\n\n");
+
+    Pila dada, aux, par, impar;
+    inicpila(&dada);
+    inicpila(&aux);
+    inicpila(&par);
+    inicpila(&impar);
+
+    printf("\nCarga automática con números del 1 al 20...\n");
+    srand(time(NULL));
+    int cantidad = rand() % 21; // Genera un número entre 0 y 20
+
+    for (int i = 0; i < cantidad; i++)
+    {
+        apilar(&dada, rand() % 21); // Apila valores aleatorios entre 0 y 20
+    }
+
+    printf("\n---- PILA DADA ------\n");
+    mostrar(&dada);
+
+    // Verificar si la pila DADA está vacía
+    if (pilavacia(&dada)) {
+        printf("\nLa pila DADA está vacía. Se considera par.\n");
+        return;
+    }
+
+    // Lógica para determinar la paridad
+    int esPar = 1; // Se asume par inicialmente
+
+    while (!pilavacia(&dada))
+    {
+        apilar(&aux, desapilar(&dada));
+        esPar = !esPar; // Alterna entre par e impar
+    }
+
+    // Mover el tope de AUX a la pila correspondiente según la paridad
+    if (esPar)
+    {
+        apilar(&par, desapilar(&aux));
+        printf("\nLa pila DADA tiene una cantidad **par** de elementos.\n");
+    }
+    else
+    {
+        apilar(&impar, desapilar(&aux));
+        printf("\nLa pila DADA tiene una cantidad **impar** de elementos.\n");
+    }
+
+    // Mostrar los resultados
+    printf("\n---- PILA AUX ------\n");
+    mostrar(&aux);
+
+    printf("\n---- PILA PAR ------\n");
+    mostrar(&par);
+
+    printf("\n---- PILA IMPAR ------\n");
+    mostrar(&impar);
 }
 
 
